@@ -15,7 +15,8 @@ public class Principal {
             if (catalogo[1] instanceof LivroDeLivraria) {
                 LivroDeLivraria livroLivraria = (LivroDeLivraria) catalogo[1];
                 JOptionPane.showMessageDialog(null, 
-                        "Preço do livro de livraria obtido: R$ " + livroLivraria.getPreco());
+                        String.format("Preço do livro de livraria obtido: R$ %.2f", livroLivraria.getPreco()),
+                        "Preço do Item", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (MinhaExcecao e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de Exceção", JOptionPane.ERROR_MESSAGE);
@@ -26,8 +27,6 @@ public class Principal {
 
             if (catalogo[0] instanceof LivroDeBiblioteca) {
                 LivroDeBiblioteca livroBiblioteca = (LivroDeBiblioteca) catalogo[0];
-                
-                
                 livroBiblioteca.devolverItem();
             }
         } catch (MinhaExcecao e) {
@@ -36,9 +35,8 @@ public class Principal {
 
         StringBuilder relatorioFinal = new StringBuilder("--- RELATÓRIO FINAL DO CATÁLOGO ---\n\n");
         for (Livro livro : catalogo) {
-            relatorioFinal.append(livro.toString()).append("\n");
-            relatorioFinal.append("-----------------------------------\n");
-            
+            relatorioFinal.append(livro.toString()).append(System.lineSeparator());
+            relatorioFinal.append("-----------------------------------").append(System.lineSeparator());
             livro.informar();
         }
 

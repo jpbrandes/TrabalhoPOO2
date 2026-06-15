@@ -12,30 +12,38 @@ public class LivroDeBiblioteca extends Livro implements ItemDeBiblioteca {
 
     @Override
     public void emprestarItem() throws MinhaExcecao {
-        if (this.emprestado) {
+        if (this.isEmprestado()) {
             throw new MinhaExcecao("Erro: O livro '" + getNome() + "' já está emprestado!");
         }
-        this.emprestado = true;
+        this.setEmprestado(true);
         JOptionPane.showMessageDialog(null, "Livro '" + getNome() + "' emprestado com sucesso.");
     }
 
     @Override
     public void devolverItem() throws MinhaExcecao {
-        if (!this.emprestado) {
+        if (!this.isEmprestado()) {
             throw new MinhaExcecao("Erro: O livro '" + getNome() + "' não está emprestado para ser devolvido!");
         }
-        this.emprestado = false;
+        this.setEmprestado(false);
         JOptionPane.showMessageDialog(null, "Livro '" + getNome() + "' devolvido com sucesso.");
     }
 
     @Override
     public boolean verificarSeEmprestado() {
-        return this.emprestado;
+        return this.isEmprestado();
     }
 
     @Override
     public void informar() {
         System.out.println("Este livro pertence à Biblioteca.");
+    }
+
+    public boolean isEmprestado() {
+        return emprestado;
+    }
+
+    public void setEmprestado(boolean emprestado) {
+        this.emprestado = emprestado;
     }
 
     @Override

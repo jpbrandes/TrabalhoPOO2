@@ -5,6 +5,9 @@ public class LivroDeLivraria extends Livro {
 
     public LivroDeLivraria(String nome, String autor, int anoEdicao, double preco) {
         super(nome, autor, anoEdicao);
+        if (preco < 0) {
+            throw new IllegalArgumentException("O preço do livro não pode ser negativo.");
+        }
         this.preco = preco;
     }
 
@@ -13,9 +16,16 @@ public class LivroDeLivraria extends Livro {
         System.out.println("Este livro pertence à Livraria (Para Venda).");
     }
 
-    // Getters e Setters
-    public double getPreco() { return preco; }
-    public void setPreco(double preco) { this.preco = preco; }
+    public double getPreco() { 
+        return preco; 
+    }
+    
+    public void setPreco(double preco) { 
+        if (preco < 0) {
+            throw new IllegalArgumentException("O preço do livro não pode ser negativo.");
+        }
+        this.preco = preco; 
+    }
 
     @Override
     public String toString() {
