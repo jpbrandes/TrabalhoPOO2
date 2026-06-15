@@ -1,49 +1,45 @@
+package Trabalho;
+
+import javax.swing.JOptionPane;
+
 public class LivroDeBiblioteca extends Livro implements ItemDeBiblioteca {
     private boolean emprestado;
-    private String nomeEmprestado;
 
     public LivroDeBiblioteca(String nome, String autor, int anoEdicao) {
         super(nome, autor, anoEdicao);
         this.emprestado = false;
-        this.nomeEmprestado = null;
     }
-
-    public String getNomeEmprestado() { return nomeEmprestado; }
-    public void setNomeEmprestado(String nomeEmprestado) { this.nomeEmprestado = nomeEmprestado; }
 
     @Override
     public void emprestarItem() throws MinhaExcecao {
-        if (emprestado) {
-            throw new MinhaExcecao("O livro \"" + getNome() + "\" já está emprestado para " + nomeEmprestado + ".");
+        if (this.emprestado) {
+            throw new MinhaExcecao("Erro: O livro '" + getNome() + "' já está emprestado!");
         }
         this.emprestado = true;
-        System.out.println("Livro \"" + getNome() + "\" emprestado com sucesso.");
+        JOptionPane.showMessageDialog(null, "Livro '" + getNome() + "' emprestado com sucesso.");
     }
 
     @Override
     public void devolverItem() throws MinhaExcecao {
-        if (!emprestado) {
-            throw new MinhaExcecao("O livro \"" + getNome() + "\" não está emprestado e não pode ser devolvido.");
+        if (!this.emprestado) {
+            throw new MinhaExcecao("Erro: O livro '" + getNome() + "' não está emprestado para ser devolvido!");
         }
         this.emprestado = false;
-        this.nomeEmprestado = null;
-        System.out.println("Livro \"" + getNome() + "\" devolvido com sucesso.");
+        JOptionPane.showMessageDialog(null, "Livro '" + getNome() + "' devolvido com sucesso.");
     }
 
     @Override
-    public boolean estaEmprestado() {
-        return emprestado;
+    public boolean verificarSeEmprestado() {
+        return this.emprestado;
     }
 
     @Override
     public void informar() {
-        System.out.println("Este é um livro de BIBLIOTECA.");
+        System.out.println("Este livro pertence à Biblioteca.");
     }
 
     @Override
     public String toString() {
-        return "=== Livro de Biblioteca ===" +
-               "\n" + super.toString() +
-               "\nStatus: " + (emprestado ? "Emprestado para " + nomeEmprestado : "Disponível");
+        return super.toString() + "\nStatus: " + (emprestado ? "Emprestado" : "Disponível");
     }
 }

@@ -1,3 +1,5 @@
+package Trabalho;
+
 public class LivroDeLivraria extends Livro {
     private double preco;
 
@@ -6,18 +8,17 @@ public class LivroDeLivraria extends Livro {
         this.preco = preco;
     }
 
+    @Override
+    public void informar() {
+        System.out.println("Este livro pertence à Livraria (Para Venda).");
+    }
+
+    // Getters e Setters
     public double getPreco() { return preco; }
     public void setPreco(double preco) { this.preco = preco; }
 
     @Override
-    public void informar() {
-        System.out.println("Este é um livro de LIVRARIA.");
-    }
-
-    @Override
     public String toString() {
-        return "=== Livro de Livraria ===" +
-               "\n" + super.toString() +
-               "\nPreço: R$ " + String.format("%.2f", preco);
+        return super.toString() + String.format("\nPreço: R$ %.2f", preco);
     }
 }

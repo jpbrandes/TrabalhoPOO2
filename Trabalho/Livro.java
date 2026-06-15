@@ -1,4 +1,6 @@
-import java.util.Scanner;
+package Trabalho;
+
+import javax.swing.JOptionPane;
 
 public abstract class Livro {
     private String nome;
@@ -10,9 +12,33 @@ public abstract class Livro {
         this.nome = nome;
         this.autor = autor;
         this.anoEdicao = anoEdicao;
-        this.avaliacao = 0;
+        this.avaliacao = 0; // Inicializa com 0
     }
 
+    public void avaliar() throws MinhaExcecao {
+        String input = JOptionPane.showInputDialog(null, 
+                "Digite a avaliação para o livro '" + this.nome + "' (entre 0 e 10):", 
+                "Avaliação", JOptionPane.QUESTION_MESSAGE);
+        
+        if (input == null) {
+            throw new MinhaExcecao("Avaliação cancelada pelo usuário.");
+        }
+
+        try {
+            int nota = Integer.parseInt(input);
+            if (nota < 0 || nota > 10) {
+                throw new MinhaExcecao("Nota inválida! A avaliação deve ser um número inteiro entre 0 e 10.");
+            }
+            this.avaliacao = nota;
+            JOptionPane.showMessageDialog(null, "Avaliação registrada com sucesso!");
+        } catch (NumberFormatException e) {
+            throw new MinhaExcecao("Entrada inválida! Você deve digitar um número inteiro.");
+        }
+    }
+
+    public abstract void informar();
+
+    // Getters e Setters
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
 
@@ -25,24 +51,8 @@ public abstract class Livro {
     public int getAvaliacao() { return avaliacao; }
     public void setAvaliacao(int avaliacao) { this.avaliacao = avaliacao; }
 
-    public void avaliar() throws MinhaExcecao {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Digite a avaliação do livro \"" + nome + "\" (0 a 10): ");
-        int nota = scanner.nextInt();
-        if (nota < 0 || nota > 10) {
-            throw new MinhaExcecao("Avaliação inválida: " + nota + ". A nota deve estar entre 0 e 10.");
-        }
-        this.avaliacao = nota;
-        System.out.println("Avaliação registrada com sucesso: " + nota);
-    }
-
-    public abstract void informar();
-
     @Override
     public String toString() {
-        return "Nome: " + nome +
-               "\nAutor: " + autor +
-               "\nAno da Edição: " + anoEdicao +
-               "\nAvaliação: " + avaliacao + "/10";
+        return "Nome: " + nome + "\nAutor: " + autor + "\nAno: " + anoEdicao + "\nAvaliação: " + avaliacao;
     }
 }
