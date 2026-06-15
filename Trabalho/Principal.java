@@ -20,7 +20,7 @@ public class Principal {
                         "Preço do Item", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (MinhaExcecao e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de Exceção", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
         }
 
         try {
@@ -32,7 +32,7 @@ public class Principal {
                 livroBibliotecaSucesso.devolverItem();
             }
         } catch (MinhaExcecao e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de Exceção", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
         }
 
         try {

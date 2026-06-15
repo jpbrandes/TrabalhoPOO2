@@ -25,20 +25,27 @@ public abstract class Livro {
     }
 
     public void avaliar() throws MinhaExcecao {
-        String input = JOptionPane.showInputDialog(null, 
-                "Digite a avaliação para o livro '" + this.nome + "' (" + NOTA_MINIMA + " a " + NOTA_MAXIMA + "):", 
-                "Avaliação do Livro", JOptionPane.QUESTION_MESSAGE);
-        
-        if (input == null) {
-            throw new MinhaExcecao("Avaliação cancelada pelo usuário.");
-        }
+        boolean notaValida = false;
 
-        try {
-            int nota = Integer.parseInt(input.trim());
-            this.setAvaliacao(nota);
-            JOptionPane.showMessageDialog(null, "Avaliação registrada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        } catch (NumberFormatException e) {
-            throw new MinhaExcecao("Entrada inválida! Você deve digitar um número inteiro válido.");
+        while (!notaValida) {
+            String input = JOptionPane.showInputDialog(null, 
+                    "Digite a avaliação para o livro '" + this.nome + "' (" + NOTA_MINIMA + " a " + NOTA_MAXIMA + "):", 
+                    "Avaliação do Livro", JOptionPane.QUESTION_MESSAGE);
+            
+            if (input == null) {
+                throw new MinhaExcecao("Avaliação cancelada pelo usuário.");
+            }
+
+            try {
+                int notaDigitada = Integer.parseInt(input.trim());
+                this.setAvaliacao(notaDigitada);
+                JOptionPane.showMessageDialog(null, "Avaliação registrada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                notaValida = true; // Sai do loop se der tudo certo
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida! Você deve digitar um número inteiro válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+            } catch (MinhaExcecao e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de Validação", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
